@@ -8,21 +8,24 @@ const schema = z.object({
     .string({
       invalid_type_error: 'Description is required',
     })
-    .min(3, { message: 'Description must be at least 3 characters' }),
+    .min(3, { message: 'Description must be at least 3 characters' })
+    .max(50, { message: 'Description must be at most 50 characters' }),
   amount: z
     .number({
       invalid_type_error: 'Amount is required',
     })
-    .min(1, { message: 'Amount must be at least 1' }),
-  category: z.string({
-    invalid_type_error: 'Category is required',
+    .min(0.01, { message: 'Amount must be at least 0.01' })
+    .max(100_000, {
+      message: 'Amount must be at most 100000',
+    }),
+  category: z.enum(item, {
+    errorMap: () => ({ message: 'Category is required' }),
   }),
 });
 
 type FormData = z.infer<typeof schema>;
 
 const Form = () => {
-
   const {
     register,
     handleSubmit,
@@ -56,7 +59,7 @@ const Form = () => {
           Amount
         </label>
         <input
-          {...register('amount')}
+          {...register('amount', { valueAsNumber: true })}
           id="amount"
           type="number"
           className="form-control"
@@ -72,8 +75,8 @@ const Form = () => {
         <select {...register('category')} id="category" className="form-select">
           <option value=""></option>
           {item.map((item) => (
-            <option key={item.value} value={item.value}>
-              {item.label}
+            <option key={item} value={item}>
+              {item}
             </option>
           ))}
         </select>
