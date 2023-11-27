@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldValues, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { item } from '../App';
+import { item } from '../utils';
 
 const schema = z.object({
   description: z

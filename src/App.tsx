@@ -3,13 +3,6 @@ import ExpenseTable from './components/ExpenseTable';
 import Form from './components/Form';
 import { useState } from 'react';
 
-export const item = [
-  { value: 'Food', label: 'Food' },
-  { value: 'Household', label: 'Household' },
-  { value: 'Entertainment', label: 'Entertainment' },
-  { value: 'Other', label: 'Other' },
-];
-
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [expenses, setExpenses] = useState([

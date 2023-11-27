@@ -1,4 +1,4 @@
-import { item } from '../App';
+import { item } from "../utils";
 
 interface Props {
   onSelectCategory: (category: string) => void;
