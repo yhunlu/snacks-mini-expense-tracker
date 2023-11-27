@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldValues, useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { item } from '../App';
 
 const schema = z.object({
   description: z
@@ -21,12 +22,6 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const Form = () => {
-  const categoryItem = [
-    { value: 'Food', label: 'Food' },
-    { value: 'Household', label: 'Household' },
-    { value: 'Entertainment', label: 'Entertainment' },
-    { value: 'Other', label: 'Other' },
-  ];
 
   const {
     register,
@@ -70,12 +65,13 @@ const Form = () => {
           <p className="text-danger">{errors.amount.message}</p>
         )}
       </div>
-      <div className="form-group mb-3">
+      <div className="mb-3">
         <label htmlFor="category" className="form-label">
           Category
         </label>
         <select {...register('category')} id="category" className="form-select">
-          {categoryItem.map((item) => (
+          <option value=""></option>
+          {item.map((item) => (
             <option key={item.value} value={item.value}>
               {item.label}
             </option>

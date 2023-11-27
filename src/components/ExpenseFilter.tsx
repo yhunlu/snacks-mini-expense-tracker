@@ -1,15 +1,10 @@
+import { item } from '../App';
+
 interface Props {
   onSelectCategory: (category: string) => void;
 }
 
 const ExpenseFilter = ({ onSelectCategory }: Props) => {
-  const item = [
-    { value: 'Food', label: 'Food' },
-    { value: 'Household', label: 'Household' },
-    { value: 'Entertainment', label: 'Entertainment' },
-    { value: 'Other', label: 'Other' },
-  ];
-
   return (
     <select
       className="form-select"
