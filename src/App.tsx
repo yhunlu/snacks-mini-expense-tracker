@@ -4,6 +4,7 @@ import Form from './components/Form';
 import { useState } from 'react';
 import ProductList from './components/ProductList';
 import { item } from './utils';
+import Users from './components/users';
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -20,6 +21,9 @@ const App = () => {
 
   return (
     <>
+      <div className="mb-3">
+        <Users />
+      </div>
       <div className="mb-3">
         <select className="form-select" onChange={(e) => setSelectedCategory(e.target.value)}>
           <option value="">All categories</option>
