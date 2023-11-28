@@ -2,6 +2,8 @@ import ExpenseFilter from './components/ExpenseFilter';
 import ExpenseTable from './components/ExpenseTable';
 import Form from './components/Form';
 import { useState } from 'react';
+import ProductList from './components/ProductList';
+import { item } from './utils';
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -18,7 +20,18 @@ const App = () => {
 
   return (
     <>
-      <div className="div mb-3">
+      <div className="mb-3">
+        <select className="form-select" onChange={(e) => setSelectedCategory(e.target.value)}>
+          <option value="">All categories</option>
+          {item.map((item) => (
+            <option key={item} value={item}>
+              {item}
+            </option>
+          ))}
+        </select>
+        <ProductList category={selectedCategory} />
+      </div>
+      <div className="mb-5">
         <Form onSubmit={(expense) => setExpenses([...expenses, { ...expense, id: expenses.length + 1}])} />
       </div>
       <div className="mb-3">
