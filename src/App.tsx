@@ -4,7 +4,7 @@ import Form from './components/Form';
 import { useState } from 'react';
 import ProductList from './components/ProductList';
 import { item } from './utils';
-import Users from './components/users';
+import Users from './components/Users';
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
