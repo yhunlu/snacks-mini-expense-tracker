@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import apiClient, { AxiosError } from '../services/api-client';
+import userService from '../services/user-service';
+import { CanceledError } from 'axios';
 
 interface User {
   id: number;
@@ -12,51 +13,60 @@ const Users = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      const controller = new AbortController();
-
-      setIsLoading(true);
-
-      try {
-        const res = await apiClient.get<User[]>('/users', {
-          signal: controller.signal,
-        });
+    setIsLoading(true);
+    const { request, cancel } = userService.getAll<User>();
+    request
+      .then((res) => {
         setUsersData(res.data);
-      } catch (err) {
-        setError((err as AxiosError).message);
-      }
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        if (err instanceof CanceledError) return;
+        setError(err.message);
+        setIsLoading(false);
+      });
 
-      setIsLoading(false);
-
-      return () => controller.abort();
-    };
-
-    fetchUsers();
+    return () => cancel();
   }, []);
 
   // create arrow function to delete user from list
-  const deleteUser = async (user: User) => {
+  const deleteUser = (user: User) => {
     const originalUsers = [...usersData];
-    try {
-      setUsersData(usersData.filter((u) => u.id !== user.id));
-      await apiClient.delete(`/xusers/${user.id}`);
-    } catch (error) {
-      setError((error as AxiosError).message);
+    setUsersData(usersData.filter((u) => u.id !== user.id));
+
+    userService.delete(user.id).catch((err) => {
+      setError(err.message);
       setUsersData(originalUsers);
-    }
+    });
   };
 
   // add user to list
-  const addUser = async () => {
+  const addUser = () => {
+    const originalUsers = [...usersData];
     const newUser = { id: 0, name: 'YAYA' };
     setUsersData([newUser, ...usersData]);
 
-    try {
-      const res = await apiClient.post<User[]>('/users', newUser);
-      setUsersData(res.data);
-    } catch (error) {
-      setError((error as AxiosError).message);
-    }
+    userService
+      .create(newUser)
+      .then(({ data: savedUser }) => {
+        setUsersData([savedUser, ...usersData]);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setUsersData(originalUsers);
+      });
+  };
+
+  // create update user to list
+  const updateUser = (user: User) => {
+    const originalUsers = [...usersData];
+    const updatedUser = { ...user, name: user.name + ' !' };
+    setUsersData(usersData.map((u) => (u.id === user.id ? updatedUser : u)));
+
+    userService.update(updatedUser).catch((err) => {
+      setError(err.message);
+      setUsersData(originalUsers);
+    });
   };
 
   return (
@@ -73,12 +83,20 @@ const Users = () => {
             className="list-group-item d-flex justify-content-between"
           >
             {user.name}
-            <button
-              className="btn btn-outline-danger"
-              onClick={() => deleteUser(user)}
-            >
-              Delete
-            </button>
+            <div>
+              <button
+                className="btn btn-outline-secondary mx-1"
+                onClick={() => updateUser(user)}
+              >
+                Update
+              </button>
+              <button
+                className="btn btn-outline-danger"
+                onClick={() => deleteUser(user)}
+              >
+                Delete
+              </button>
+            </div>
           </li>
         ))}
       </ul>
