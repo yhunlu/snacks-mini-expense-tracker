@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
 import userService from '../services/user-service';
-import { CanceledError } from 'axios';
+import useUsers from '../hooks/useUsers';
 
 interface User {
   id: number;
@@ -8,26 +7,8 @@ interface User {
 }
 
 const Users = () => {
-  const [usersData, setUsersData] = useState<User[]>([]);
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    const { request, cancel } = userService.getAll<User>();
-    request
-      .then((res) => {
-        setUsersData(res.data);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        if (err instanceof CanceledError) return;
-        setError(err.message);
-        setIsLoading(false);
-      });
-
-    return () => cancel();
-  }, []);
+  // call custom hook
+  const { usersData, error, isLoading, setUsersData, setError } = useUsers();
 
   // create arrow function to delete user from list
   const deleteUser = (user: User) => {
