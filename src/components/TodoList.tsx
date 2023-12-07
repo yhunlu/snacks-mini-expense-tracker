@@ -11,10 +11,12 @@ const TodoList = () => {
     return apiClient.get<Todo[]>('/todos').then((res) => res.data);
   };
 
-  const { data, error } = useQuery({
+  const { data, error, isLoading } = useQuery({
     queryKey: ['todos'],
     queryFn: fetchTodos,
   });
+
+  if (isLoading) return <p>Loading...</p>;
 
   if (error) return <p>{error.message}</p>;
   if (!data) return <p>loading...</p>;
