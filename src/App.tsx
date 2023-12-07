@@ -5,6 +5,7 @@ import { useState } from 'react';
 import ProductList from './components/ProductList';
 import { item } from './utils';
 import Users from './components/Users';
+import TodoList from './components/TodoList';
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -20,36 +21,39 @@ const App = () => {
     : expenses;
 
   return (
-    <>
-      <div className="mb-3">
-        <Users />
-      </div>
-      <div className="mb-3">
-        <select className="form-select" onChange={(e) => setSelectedCategory(e.target.value)}>
-          <option value="">All categories</option>
-          {item.map((item) => (
-            <option key={item} value={item}>
-              {item}
-            </option>
-          ))}
-        </select>
-        <ProductList category={selectedCategory} />
-      </div>
-      <div className="mb-5">
-        <Form onSubmit={(expense) => setExpenses([...expenses, { ...expense, id: expenses.length + 1}])} />
-      </div>
-      <div className="mb-3">
-        <ExpenseFilter
-          onSelectCategory={(category) => setSelectedCategory(category)}
-        />
-      </div>
-      <ExpenseTable
-        expenses={visibleExpenses}
-        onDelete={(id) =>
-          setExpenses(expenses.filter((expense) => expense.id !== id))
-        }
-      />
-    </>
+    <div className="mb-3">
+      <TodoList />
+    </div>
+    // <>
+    //   <div className="mb-3">
+    //     <Users />
+    //   </div>
+    //   <div className="mb-3">
+    //     <select className="form-select" onChange={(e) => setSelectedCategory(e.target.value)}>
+    //       <option value="">All categories</option>
+    //       {item.map((item) => (
+    //         <option key={item} value={item}>
+    //           {item}
+    //         </option>
+    //       ))}
+    //     </select>
+    //     <ProductList category={selectedCategory} />
+    //   </div>
+    //   <div className="mb-5">
+    //     <Form onSubmit={(expense) => setExpenses([...expenses, { ...expense, id: expenses.length + 1}])} />
+    //   </div>
+    //   <div className="mb-3">
+    //     <ExpenseFilter
+    //       onSelectCategory={(category) => setSelectedCategory(category)}
+    //     />
+    //   </div>
+    //   <ExpenseTable
+    //     expenses={visibleExpenses}
+    //     onDelete={(id) =>
+    //       setExpenses(expenses.filter((expense) => expense.id !== id))
+    //     }
+    //   />
+    // </>
   );
 };
 
