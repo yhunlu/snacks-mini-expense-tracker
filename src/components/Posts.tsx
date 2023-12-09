@@ -2,9 +2,10 @@ import { useState } from 'react';
 import usePosts from '../hooks/usePosts';
 
 const Posts = () => {
-  const [userId, setUserId] = useState<number>();
+  const pageSize = 10;
+  const [page, setPage] = useState(1);
 
-  const { data, data: datauserId, error, isLoading } = usePosts(userId);
+  const { data, error, isLoading } = usePosts({ page, pageSize });
 
   if (isLoading) return <p>Loading...</p>;
 
@@ -13,23 +14,6 @@ const Posts = () => {
 
   return (
     <>
-      <select
-        className="form-select mb-3"
-        onChange={(event) => setUserId(parseInt(event.target.value))}
-        value={userId}
-      >
-        <option value="">All users</option>
-        {/* all users without duplication */}
-        {datauserId
-          .map((post) => post.userId)
-          // to remove duplicate user IDs from the array. It keeps only the first occurrence of each unique user ID.
-          .filter((userId, index, self) => self.indexOf(userId) === index)
-          .map((userId) => (
-            <option key={userId} value={userId}>
-              {`User ${userId}`}
-            </option>
-          ))}
-      </select>
       <ul className="list-group">
         {data?.map((post) => (
           <li
@@ -49,6 +33,12 @@ const Posts = () => {
           </li>
         ))}
       </ul>
+      <button className="btn btn-primary" onClick={() => setPage(page - 1)} disabled={page === 1}>
+        Previous
+      </button>
+      <button className="btn btn-primary ms-3" onClick={() => setPage(page + 1)}>
+        Next
+      </button>
     </>
   );
 };
