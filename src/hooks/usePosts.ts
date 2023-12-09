@@ -8,13 +8,15 @@ interface Posts {
   userId: number;
 }
 
-const usePosts = () => {
+const usePosts = (userId: number | undefined) => {
   const fetchPosts = () => {
-    return apiClient.get<Posts[]>('/posts').then((res) => res.data);
+    return apiClient
+      .get<Posts[]>('/posts', { params: { userId } })
+      .then((res) => res.data);
   };
 
   return useQuery({
-    queryKey: ['posts'],
+    queryKey: userId ? ['users', userId, 'posts'] : ['posts'], // when parameterizing queryKey, it should be an array
     queryFn: fetchPosts,
     staleTime: 1 * 60 * 1000, // 1 minute
   });
