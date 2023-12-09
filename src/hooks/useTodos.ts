@@ -14,7 +14,7 @@ const useTodos = () => {
   return useQuery({
     queryKey: ['todos'],
     queryFn: fetchTodos,
-    staleTime: 10 * 1000,
+    staleTime: 10 * 1000, // 10 seconds
   });
 };
 

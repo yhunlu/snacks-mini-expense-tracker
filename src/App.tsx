@@ -6,6 +6,7 @@ import ProductList from './components/ProductList';
 import { item } from './utils';
 import Users from './components/Users';
 import TodoList from './components/TodoList';
+import Posts from './components/Posts';
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -22,7 +23,8 @@ const App = () => {
 
   return (
     <div className="mb-3">
-      <TodoList />
+      {/* <TodoList /> */}
+      <Posts />
     </div>
     // <>
     //   <div className="mb-3">
