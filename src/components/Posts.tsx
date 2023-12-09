@@ -1,4 +1,4 @@
-import usePosts from "../hooks/usePosts"
+import usePosts from '../hooks/usePosts';
 
 const Posts = () => {
     const { data, error, isLoading } = usePosts();
@@ -16,7 +16,10 @@ const Posts = () => {
                     className="list-group-item list-group d-flex justify-content-between"
                 >
                     <span>
-                        <strong>{post.id}</strong>
+                        <strong>
+                            <h1 className='text-primary font-monospace'>{`USERID: ${post.userId}`}</h1>
+                            <h2 className='text-secondary font-monospace'>{`POSTID: ${post.id}`}</h2>
+                        </strong>
                     </span>
                     {post.title}
                     <ul className="list-group list-group-flush mt-3 mb-3 ms-5 font-monospace font-size-sm font-weight-bold">
@@ -25,7 +28,7 @@ const Posts = () => {
                 </li>
             ))}
         </ul>
-    )
-}
+    );
+};
 
-export default Posts
+export default Posts;
