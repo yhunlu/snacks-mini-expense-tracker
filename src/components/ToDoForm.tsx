@@ -10,17 +10,30 @@ const ToDoForm = () => {
     mutationFn: (todo: Todo) =>
       apiClient.post<Todo[]>('/todos', todo).then((res) => res.data),
 
-    onSuccess: (savedTodo, newTodo) => {
-      // 1: Invalidating the cache of todos
-      //   queryClient.invalidateQueries({ queryKey: ['todos'] });
+    onMutate: (newTodo: Todo) => {
+      const previousTodos = queryClient.getQueryData<Todo[]>(['todos']);
 
-      // 2: Updating the data in the cache
       queryClient.setQueryData<Todo[]>(['todos'], (todos) => {
-        const updatedTodos = [savedTodo, ...(todos || [])];
+        const updatedTodos = [newTodo, ...(todos || [])];
         return updatedTodos as Todo[];
       });
 
       ref.current!.value = '';
+
+      return { previousTodos };
+    },
+    onSuccess: (savedTodo, newTodo) => {
+      queryClient.setQueryData<Todo[]>(
+        ['todos'],
+        (todos) =>
+          todos?.map((todo) => (todo === newTodo ? savedTodo : todo)) as Todo[]
+      );
+    },
+
+    onError: (err, newTodo, context) => {
+      if (!context) return;
+
+      queryClient.setQueryData<Todo[]>(['todos'], context?.previousTodos);
     },
   });
 
