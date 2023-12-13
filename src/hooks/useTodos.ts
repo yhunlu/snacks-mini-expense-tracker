@@ -1,9 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import apiClient from '../services/api-client';
 
-interface Todo {
+export interface Todo {
   id: number;
   title: string;
+  completed: boolean;
+  userId: number;
 }
 
 const useTodos = () => {

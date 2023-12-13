@@ -7,6 +7,7 @@ import { item } from './utils';
 import Users from './components/Users';
 import TodoList from './components/TodoList';
 import Posts from './components/Posts';
+import ToDoForm from './components/ToDoForm';
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -22,10 +23,14 @@ const App = () => {
     : expenses;
 
   return (
-    <div className="mb-3">
-      {/* <TodoList /> */}
-      <Posts />
-    </div>
+    <>
+      <div className="mb-3">
+        <ToDoForm />
+      </div>
+      <div className="mb-3">
+        <TodoList />
+      </div>
+    </>
     // <>
     //   <div className="mb-3">
     //     <Users />
