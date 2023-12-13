@@ -30,12 +30,8 @@ const ToDoForm = () => {
           <input type="text" ref={ref} className="form-control" />
         </div>
         <div className="col">
-          <button
-            className="btn btn-primary"
-            type="submit"
-            disabled={addTodo.isPending}
-          >
-            {addTodo.isPending ? 'Adding...' : 'Add'}
+          <button className="btn btn-primary" type="submit">
+            Add
           </button>
         </div>
       </form>

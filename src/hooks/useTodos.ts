@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import apiClient from '../services/api-client';
 import { CACHE_KEY_TODOS } from '../utils/constants';
+import APIClient from '../services/apiClient';
+
+const apiClient = new APIClient<Todo>(`/${CACHE_KEY_TODOS}`);
 
 export interface Todo {
   id: number;
@@ -10,13 +12,9 @@ export interface Todo {
 }
 
 const useTodos = () => {
-  const fetchTodos = () => {
-    return apiClient.get<Todo[]>(`/${CACHE_KEY_TODOS}`).then((res) => res.data);
-  };
-
   return useQuery({
     queryKey: [CACHE_KEY_TODOS],
-    queryFn: fetchTodos,
+    queryFn: apiClient.getAll,
     staleTime: 10 * 1000, // 10 seconds
   });
 };
