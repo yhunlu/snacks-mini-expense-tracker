@@ -9,6 +9,7 @@ import TodoList from './components/TodoList';
 import Posts from './components/Posts';
 import ToDoForm from './components/ToDoForm';
 import Counter from './state-management/Counter';
+import TaskList from './state-management/TaskList';
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -24,7 +25,8 @@ const App = () => {
     : expenses;
 
   return (
-    <Counter />
+    <TaskList />
+    // <Counter />
     // <>
     //   <div className="mb-3">
     //     <ToDoForm />
