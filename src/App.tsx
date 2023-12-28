@@ -1,7 +1,7 @@
 import ExpenseFilter from './components/ExpenseFilter';
 import ExpenseTable from './components/ExpenseTable';
 import Form from './components/Form';
-import { useState } from 'react';
+import { useReducer, useState } from 'react';
 import ProductList from './components/ProductList';
 import { item } from './utils';
 import Users from './components/Users';
@@ -11,6 +11,9 @@ import ToDoForm from './components/ToDoForm';
 import Counter from './state-management/Counter';
 import TaskList from './state-management/TaskList';
 import LoginStatus from './state-management/LoginStatus';
+import taskReducer from './state-management/reducers/taskReducer';
+import TasksContext from './state-management/contexts/tasksContext';
+import NavBar from './state-management/NavBar';
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -25,10 +28,15 @@ const App = () => {
     ? expenses.filter((expense) => expense.category === selectedCategory)
     : expenses;
 
+  const [task, dispatch] = useReducer(taskReducer, []);
+
   return (
-    <LoginStatus />
+    <TasksContext.Provider value={{ task, dispatch }}>
+      <NavBar />
+      <TaskList />
+    </TasksContext.Provider>
+    // <LoginStatus />
     // <Posts />
-    // <TaskList />
     // <Counter />
     // <>
     //   <div className="mb-3">
