@@ -14,6 +14,8 @@ import LoginStatus from './state-management/LoginStatus';
 import taskReducer from './state-management/reducers/taskReducer';
 import TasksContext from './state-management/contexts/tasksContext';
 import NavBar from './state-management/NavBar';
+import loginReducer from './state-management/reducers/loginReducer';
+import AuthContext from './state-management/contexts/loginContext';
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -28,13 +30,16 @@ const App = () => {
     ? expenses.filter((expense) => expense.category === selectedCategory)
     : expenses;
 
-  const [task, dispatch] = useReducer(taskReducer, []);
+  const [task, taskdispatch] = useReducer(taskReducer, []);
+  const [user, authdispatch] = useReducer(loginReducer, '');
 
   return (
-    <TasksContext.Provider value={{ task, dispatch }}>
-      <NavBar />
-      <TaskList />
-    </TasksContext.Provider>
+    <AuthContext.Provider value={{ user, dispatch: authdispatch }}>
+      <TasksContext.Provider value={{ task, dispatch: taskdispatch }}>
+        <NavBar />
+        <TaskList />
+      </TasksContext.Provider>
+    </AuthContext.Provider>
     // <LoginStatus />
     // <Posts />
     // <Counter />
