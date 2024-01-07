@@ -1,36 +1,20 @@
-import ExpenseFilter from './components/ExpenseFilter';
-import ExpenseTable from './components/ExpenseTable';
-import Form from './components/Form';
-import { useReducer, useState } from 'react';
-import ProductList from './components/ProductList';
-import { item } from './utils';
-import Users from './components/Users';
-import TodoList from './components/TodoList';
-import Posts from './components/Posts';
-import ToDoForm from './components/ToDoForm';
-import Counter from './state-management/Counter';
-import TaskList from './state-management/TaskList';
-import LoginStatus from './state-management/LoginStatus';
-import taskReducer from './state-management/reducers/taskReducer';
-import TasksContext from './state-management/contexts/tasksContext';
-import NavBar from './state-management/NavBar';
-import loginReducer from './state-management/reducers/loginReducer';
-import AuthContext from './state-management/contexts/loginContext';
 import AuthProvider from './state-management/AuthProvider';
-import TasksProvider from './state-management/TasksProvider';
+import NavBar from './state-management/NavBar';
+import TaskList from './state-management/tasks/TaskList';
+import TasksProvider from './state-management/tasks/TasksProvider';
 
 const App = () => {
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [expenses, setExpenses] = useState([
-    { id: 1, description: 'Expense 1', amount: 10, category: 'Food' },
-    { id: 2, description: 'Expense 2', amount: 20, category: 'Household' },
-    { id: 3, description: 'Expense 3', amount: 30, category: 'Entertainment' },
-    { id: 4, description: 'Expense 4', amount: 40, category: 'Other' },
-  ]);
+  // const [selectedCategory, setSelectedCategory] = useState('');
+  // const [expenses, setExpenses] = useState([
+  //   { id: 1, description: 'Expense 1', amount: 10, category: 'Food' },
+  //   { id: 2, description: 'Expense 2', amount: 20, category: 'Household' },
+  //   { id: 3, description: 'Expense 3', amount: 30, category: 'Entertainment' },
+  //   { id: 4, description: 'Expense 4', amount: 40, category: 'Other' },
+  // ]);
 
-  const visibleExpenses = selectedCategory
-    ? expenses.filter((expense) => expense.category === selectedCategory)
-    : expenses;
+  // const visibleExpenses = selectedCategory
+  //   ? expenses.filter((expense) => expense.category === selectedCategory)
+  //   : expenses;
 
   return (
     <AuthProvider>
