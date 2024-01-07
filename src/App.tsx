@@ -1,4 +1,4 @@
-import AuthProvider from './state-management/AuthProvider';
+import AuthProvider from './state-management/auth/AuthProvider';
 import NavBar from './state-management/NavBar';
 import TaskList from './state-management/tasks/TaskList';
 import TasksProvider from './state-management/tasks/TasksProvider';
