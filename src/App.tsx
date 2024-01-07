@@ -1,4 +1,3 @@
-import AuthProvider from './state-management/auth/AuthProvider';
 import Counter from './state-management/counter/Counter';
 import NavBar from './state-management/NavBar';
 import TaskList from './state-management/tasks/TaskList';
@@ -18,13 +17,12 @@ const App = () => {
   //   : expenses;
 
   return (
-    <AuthProvider>
-      <TasksProvider>
-        <Counter />
-        <NavBar />
-        <TaskList />
-      </TasksProvider>
-    </AuthProvider>
+    <TasksProvider>
+      <Counter />
+      <NavBar />
+      <TaskList />
+    </TasksProvider>
+
     // <LoginStatus />
     // <Posts />
     // <Counter />
