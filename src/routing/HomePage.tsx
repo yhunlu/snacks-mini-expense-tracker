@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // homepage and clickable link to user page
 
@@ -13,6 +13,7 @@ const HomePage = () => {
     <div>
       <h1>HomePage</h1>
       <button onClick={handleClick}>users</button>
+      <Link to="/contact">Contact</Link>
     </div>
   );
 };
