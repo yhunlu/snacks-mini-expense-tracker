@@ -2,7 +2,7 @@ import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 
 const UserDetailPage = () => {
   const params = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const location = useLocation();
   
   console.log(params, searchParams.toString(), searchParams.get('name'));
