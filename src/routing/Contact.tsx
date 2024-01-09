@@ -1,9 +1,17 @@
-import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const Contact = () => {
+  const navigate = useNavigate();
   return (
-    <div>Contact</div>
-  )
-}
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        navigate('/');
+      }}
+    >
+      <button className="btn btn-primary">Submit</button>
+    </form>
+  );
+};
 
-export default Contact
+export default Contact;
