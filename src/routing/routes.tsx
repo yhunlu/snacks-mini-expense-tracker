@@ -3,23 +3,30 @@ import HomePage from './HomePage';
 import UserLists from './UserLists';
 import Contact from './Contact';
 import UserDetailPage from './UserDetailPage';
+import Layout from './Layout';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <HomePage />,
-  },
-  {
-    path: '/users',
-    element: <UserLists />,
-  },
-  {
-    path: '/users/:id',
-    element: <UserDetailPage />,
-  },
-  {
-    path: '/contact',
-    element: <Contact />,
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: 'users',
+        element: <UserLists />,
+      },
+      {
+        path: 'contact',
+        element: <Contact />,
+      },
+      {
+        path: 'users/:id',
+        element: <UserDetailPage />,
+      },
+    ],
   },
 ]);
 
