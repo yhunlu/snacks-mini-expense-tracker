@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 const UserLists = () => {
   const users = [
     { id: 1, name: 'User 1' },
@@ -6,11 +8,13 @@ const UserLists = () => {
   ];
 
   return (
-    <div>
+    <ul>
       {users.map((user) => (
-        <div key={user.id}>{user.name}</div>
+        <li key={user.id}>
+          <Link to={`/users/${user.id}`}>{user.name}</Link>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };
 
