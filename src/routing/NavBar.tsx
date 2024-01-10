@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const NavBar = () => {
   return (
@@ -14,7 +14,7 @@ const NavBar = () => {
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
           aria-controls="navbarNav"
-          aria-expanded="false"
+          aria-expanded="true"
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
@@ -22,9 +22,9 @@ const NavBar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/">
+              <NavLink className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} aria-current="page" to="/">
                 Home
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/users">
