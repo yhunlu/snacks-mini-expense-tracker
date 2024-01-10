@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 // homepage and clickable link to user page
 
 const HomePage = () => {
-  throw new Error('Something failed');
+  // throw new Error('Something failed');
 
   const history = useNavigate();
 
